@@ -1,12 +1,16 @@
 from django.shortcuts import render
 
-# Create your views here.
 from rest_framework import generics
 
 from pizzas.models import Pizza
 from .serializers import PizzaSerializer
 
 
-class PizzaAPIView(generics.ListAPIView):
+class PizzaList(generics.ListCreateAPIView):
+    queryset = Pizza.objects.all()
+    serializer_class = PizzaSerializer
+
+
+class PizzaDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Pizza.objects.all()
     serializer_class = PizzaSerializer
