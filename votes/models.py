@@ -8,8 +8,6 @@ from pizzas.models import Pizza
 class Vote(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     pizza = models.ForeignKey(Pizza, on_delete=models.CASCADE)
-    vote_mark = models.PositiveIntegerField()
 
     def __str__(self):
-        return self.id
-
+        return str(self.id)
