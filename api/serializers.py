@@ -1,17 +1,24 @@
 from rest_framework import serializers
 from pizzas.models import Pizza
 from votes.models import Vote
+from django.contrib.auth.models import User
 
 
 class PizzaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pizza
-        fields = ('name', 'price')
+        fields = ('id', 'name', 'price')
 
 
 class VoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vote
-        fields = ('author', 'pizza')
+        fields = ('id', 'author', 'pizza')
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username')
 
 

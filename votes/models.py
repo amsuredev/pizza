@@ -10,4 +10,16 @@ class Vote(models.Model):
     pizza = models.ForeignKey(Pizza, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.id)
+        return 'author: ' + str(self.author.id) + ' pizza: ' + str(self.pizza.id)
+
+    # not allow to add same votes
+    def save(self, *args, **kwargs):
+        if not exist_vote(self.author, self.pizza):
+            super(Vote, self).save(*args, **kwargs)
+
+
+def exist_vote(author, pizza):
+    for vote in Vote.objects.all():
+        if vote.author.__eq__(author) and vote.pizza.__eq__(pizza):
+            return True
+    return False
