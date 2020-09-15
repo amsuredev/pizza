@@ -29,5 +29,10 @@ class VoteTests(TestCase):
         self.assertEqual(f'{vote.author}', 'test_user1')
         self.assertEqual(f'{vote.pizza}', 'test_pizza1')
         self.assertEqual(vote.vote_mark, 4)
-
-
+'''
+    def test_get_datas(self):
+        list_users = []
+        for vote in Vote.objects.all():
+            list_users.append(vote.author)
+        print(list_users)
+'''
