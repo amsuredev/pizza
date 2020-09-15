@@ -9,5 +9,6 @@ urlpatterns = [
     path('votes/<int:pk>', VoteDetail.as_view()),
     path('voting_res/', get_res_of_voting),
     path('users/', UserList.as_view()),
-    path('auth/', include('dj_rest_auth.urls'))#/auth/login/
+    path('auth/', include('dj_rest_auth.urls')),#/auth/login/
+    path('register/', include('dj_rest_auth.registration.urls'))
 ]
