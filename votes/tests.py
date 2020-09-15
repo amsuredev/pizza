@@ -17,22 +17,31 @@ class VoteTests(TestCase):
         #create test_pizza
         test_pizza1 = Pizza.objects.create(
             name="test_pizza1",
-            price="7"
+            price=7
         )
         test_pizza1.save()
         #create vote
-        test_vote = Vote.objects.create(author=test_user1, pizza=test_pizza1, vote_mark=4)
+        test_vote = Vote.objects.create(author=test_user1, pizza=test_pizza1)
         test_vote.save()
+
+        #add second same vote
+        test_vote_same = Vote.objects.create(author=test_user1, pizza=test_pizza1)
+        test_vote_same.save()
 
     def test_vote_content(self):
         vote = Vote.objects.get(id=1)
         self.assertEqual(f'{vote.author}', 'test_user1')
         self.assertEqual(f'{vote.pizza}', 'test_pizza1')
-        self.assertEqual(vote.vote_mark, 4)
-'''
-    def test_get_datas(self):
-        list_users = []
+
+    @staticmethod
+    def exist_repeats(check_vote: Vote):
         for vote in Vote.objects.all():
-            list_users.append(vote.author)
-        print(list_users)
-'''
+            if vote.pizza.__eq__(check_vote.pizza) and vote.author.__eq__(check_vote.pizza):
+                return True
+        return False
+
+    def test_similar_vote_repeat(self):
+        for vote in Vote.objects.all():
+            self.assertEqual(self.exist_repeats(vote), False)
+
+
