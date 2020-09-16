@@ -8,6 +8,7 @@ import json
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 
+
 @api_view(['GET'])
 def get_res_of_voting(request):
     res_of_voting = {}
@@ -22,12 +23,11 @@ def get_res_of_voting(request):
 @permission_classes((permissions.IsAuthenticated,))
 def post_vote(request):
     try:
-        id_user = int(request.data['id_user'])
         id_pizza = int(request.data['id_pizza'])
     except:
         return HttpResponse(json.dumps({'status': 'Incorrect data type'}))
-    if request.user.id == id_user and Pizza.exist_pizza(id_pizza) and first_vote(request.user.id):
-        Vote(pizza_id=id_pizza, author_id=id_user).save()
+    if Pizza.exist_pizza(id_pizza) and first_vote(request.user.id):
+        Vote(pizza_id=id_pizza, author_id=request.user.id).save()
     return HttpResponse(json.dumps({'status': 'Correct data types'}))
 
 
