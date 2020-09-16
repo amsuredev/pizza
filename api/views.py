@@ -9,7 +9,7 @@ from rest_framework.decorators import api_view
 from pizzas.models import Pizza
 from votes.models import Vote
 from .serializers import PizzaSerializer, VoteSerializer, UserSerializer
-from .permissions import IsAuthorOrReadOnly
+from .permissions import IsAuthorOrReadOnly, ReadOnly
 
 
 class PizzaList(generics.ListCreateAPIView):
@@ -18,11 +18,12 @@ class PizzaList(generics.ListCreateAPIView):
 
 
 class PizzaDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (ReadOnly,)
     queryset = Pizza.objects.all()
     serializer_class = PizzaSerializer
 
 
-class VoteList(generics.ListCreateAPIView):
+class VoteList(generics.ListAPIView):
     queryset = Vote.objects.all()
     serializer_class = VoteSerializer
 

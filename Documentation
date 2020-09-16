@@ -1,0 +1,29 @@
+I have built a backend application that allows to vote for the best pizza.
+The project was implemented with django, django rest framework.
+Additionally I add authorisation and authentication.
+Authentication is available via tokens.
+
+The project has next apps:
+    pizza_project - top level urls; settings
+    pizzas - has Model Pizza
+    votes - has Model Vote
+
+Database tables(Models):
+    Pizza - id;name;price
+    Users - built in django
+    Votes - author;pizza
+
+By default IsAuthenticatedOrReadOnly permission
+
+url structure:
+    / - nothing
+        api/ - nothing
+            pizzas/ -          list of pizzas (GET/POST)
+            pizzas/<int:pk>/ - pizza details (DELETE/GET/PUT)   IsAdminUser
+            votes/ -           list votes (GET)
+            votes/<int:pk> -   list detail (DELETE/GET/PUT)     ReadOnly
+            voting_res/ -      list voting results (GET)
+            users/ -           list users (GET)
+            auth/login/ -      login (POST)
+            register/ -        register (POST)
+            post_vote/ -       vote (POST)                      IsAuthenticated
