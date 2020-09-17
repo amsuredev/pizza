@@ -1,0 +1,41 @@
+Backend part of a web application in python, which will allow voting for the best pizza.
+The Application track the amount of toppings on each pizza.
+Voting is available via REST API.
+
+The project was implemented with django, django rest framework.
+Additionally I add authorisation and authentication.
+Authentication is available via tokens.
+
+The project has next apps:
+    pizza_project - top level urls; settings
+    pizzas - has Model Pizza
+    votes - has Model Vote
+    toppings - has Model Toppings
+    toppings_in_pizza - has Model ToppingsInPizza
+
+Database tables(Models):
+    Pizza - id;name;price;author (only the author can delete/put his pizza; unique pizza name)
+    Users - built in django
+    Votes - id;author;pizza (author (user) may vote for the best pizza only once)
+    Toppings - id;name (unique names)
+    ToppingsInPizza - id;topping (add topping for the pizza can only the author of this pizza)
+
+By default IsAuthenticatedOrReadOnly permission
+
+url structure:
+    / - nothing
+        api/ - nothing
+            pizzas/ -                list of pizzas (GET)
+            add_pizza/ -             add pizza (POST)
+            pizzas/<int:pk>/ -       pizza details (DELETE/GET/PUT)             IsAuthorOrReadOnly
+            votes/ -                 list votes (GET)
+            post_vote/ -             vote (POST)                                IsAuthenticated
+            votes/<int:pk> -         list detail (DELETE/GET/PUT)               IsAuthorOrReadOnly
+            voting_res/ -            list voting results (GET)
+            users/ -                 list users (GET)                           IsAdminUser
+            auth/login/ -            login (POST)
+            register/ -              register (POST)
+            toppings/ -              list toppings (ADD/DELETE)
+            amount_of_toppings/ -    list amount of toppings in each pizza (GET)
+            toppings_in_pizza/ -     list pizza;topping (GET)
+            add_toppings_in_pizza/ - add_toppings_in_pizza(POST)

@@ -38,7 +38,7 @@ class VoteDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class UserList(generics.ListAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAdminUser,)
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
