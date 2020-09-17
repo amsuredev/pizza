@@ -7,6 +7,8 @@ from votes.models import Vote
 import json
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from toppings_in_pizza.models import ToppingsInPizza
+
 
 @api_view(['GET'])
 def get_res_of_voting(request):
@@ -31,8 +33,19 @@ def post_vote(request):
     return HttpResponse(json.dumps({'status': 'Correct data types'}))
 
 
+#can move to model
 def first_vote(author_id):
     for vote in Vote.objects.all():
         if vote.author_id == author_id:
             return False
     return True
+
+
+@api_view(['GET'])
+def amount_of_toppings(request):
+    amount_top = {}
+    for pizza in Pizza.objects.all():
+        amount_top[pizza.name] = 0
+    for topping in ToppingsInPizza.objects.all():
+        amount_top[topping.pizza.name] += 1
+    return HttpResponse(json.dumps(amount_top))

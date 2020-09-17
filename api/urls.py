@@ -1,6 +1,6 @@
 from django.urls import path, include
-from .library import get_res_of_voting, post_vote
-from .views import PizzaList, PizzaDetail, VoteList, VoteDetail, UserList
+from .library import get_res_of_voting, post_vote, amount_of_toppings
+from .views import PizzaList, PizzaDetail, VoteList, VoteDetail, UserList, ToppingList, ToppingsInPizzaList
 
 urlpatterns = [
     path('pizzas/', PizzaList.as_view()),
@@ -12,4 +12,7 @@ urlpatterns = [
     path('auth/', include('dj_rest_auth.urls')),#/auth/login/
     path('register/', include('dj_rest_auth.registration.urls')),
     path('post_vote/', post_vote),
+    path('toppings/', ToppingList.as_view()),
+    path('toppings_in_pizza/', ToppingsInPizzaList.as_view()),
+    path('amount_of_toppings/', amount_of_toppings),
 ]

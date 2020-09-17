@@ -6,6 +6,7 @@ from django.db import models
 class Pizza(models.Model):
     name = models.TextField(max_length=50)
     price = models.PositiveIntegerField()
+    #toppings = CollectionField()
 
     def __str__(self):
         return self.name
