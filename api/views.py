@@ -25,7 +25,7 @@ class PizzaDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PizzaSerializer
 
 
-class VoteList(generics.ListCreateAPIView):
+class VoteList(generics.ListAPIView):
     queryset = Vote.objects.all()
     serializer_class = VoteSerializer
 

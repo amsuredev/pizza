@@ -12,14 +12,15 @@ class Vote(models.Model):
     def __str__(self):
         return 'author: ' + str(self.author.id) + ' pizza: ' + str(self.pizza.id)
 
-    # not allow to add same votes
+    # not allow to vote two or more times
     def save(self, *args, **kwargs):
-        if not exist_vote(self.author, self.pizza):
+        if self.first_vote(self.author.id):
             super(Vote, self).save(*args, **kwargs)
 
+    @staticmethod
+    def first_vote(author_id):
+        for vote in Vote.objects.all():
+            if author_id == vote.author_id:
+                return False
+        return True
 
-def exist_vote(author, pizza):
-    for vote in Vote.objects.all():
-        if vote.author.__eq__(author) and vote.pizza.__eq__(pizza):
-            return True
-    return False
