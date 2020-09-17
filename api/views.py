@@ -26,7 +26,6 @@ class PizzaList(generics.ListAPIView):
 
 
 class PizzaDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (ReadOnly,)
     permission_classes = (IsAuthorOrReadOnly,)
     queryset = Pizza.objects.all()
     serializer_class = PizzaSerializer

@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .library import get_res_of_voting, post_vote, amount_of_toppings, add_toppings_in_pizza, add_pizza
+from .views_functions import get_res_of_voting, post_vote, amount_of_toppings, add_toppings_in_pizza, add_pizza
 from .views import PizzaList, PizzaDetail, VoteList, VoteDetail, UserList, ToppingList, ToppingsInPizzaList
 
 urlpatterns = [
