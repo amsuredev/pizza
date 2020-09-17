@@ -29,11 +29,6 @@ class VoteList(generics.ListAPIView):
     queryset = Vote.objects.all()
     serializer_class = VoteSerializer
 
-    #def post(self, request, *args, **kwargs):
-        #if request.user.pk == self.serializer_class.Meta.model.author:
-        #super(VoteList, self).post(self, request)
-        #super(VoteList, self).post(self, request, *args, **kwargs)
-
 
 class VoteDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthorOrReadOnly,)
@@ -55,5 +50,3 @@ class ToppingList(generics.ListCreateAPIView):
 class ToppingsInPizzaList(generics.ListCreateAPIView):
     queryset = ToppingsInPizza.objects.all()
     serializer_class = ToppingsInPizzaSerializer
-#@api_view(['POST'])
-#def post_vote(request):
