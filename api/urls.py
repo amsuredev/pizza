@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .library import get_res_of_voting, post_vote, amount_of_toppings, add_toppings_in_pizza
+from .library import get_res_of_voting, post_vote, amount_of_toppings, add_toppings_in_pizza, add_pizza
 from .views import PizzaList, PizzaDetail, VoteList, VoteDetail, UserList, ToppingList, ToppingsInPizzaList
 
 urlpatterns = [
@@ -16,4 +16,5 @@ urlpatterns = [
     path('toppings_in_pizza/', ToppingsInPizzaList.as_view()),
     path('amount_of_toppings/', amount_of_toppings),
     path('add_toppings_in_pizza/', add_toppings_in_pizza),
+    path('add_pizza/', add_pizza)
 ]

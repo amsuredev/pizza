@@ -15,7 +15,7 @@ from .serializers import PizzaSerializer, VoteSerializer, UserSerializer,\
 from .permissions import IsAuthorOrReadOnly
 
 
-class PizzaList(generics.ListCreateAPIView):
+class PizzaList(generics.ListAPIView):
     queryset = Pizza.objects.all()
     serializer_class = PizzaSerializer
 

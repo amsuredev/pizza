@@ -30,7 +30,7 @@ def post_vote(request):
         id_pizza = int(request.data['id_pizza'])
     except:
         return HttpResponse(json.dumps({'status': 'Incorrect data type'}))
-    if Pizza.exist_pizza(id_pizza):
+    if Pizza.exist_pizza_by_id(id_pizza):
         Vote(author=request.user, pizza_id=id_pizza).save()
     return HttpResponse(json.dumps({'status': 'Correct data types'}))
 
@@ -53,8 +53,19 @@ def add_toppings_in_pizza(request):
     except:
         return HttpResponse(json.dumps({'status': 'Incorrect data type'}))
 
-    if Pizza.exist_pizza(id_pizza) and Topping.exist_topping(id_topping):
+    if Pizza.exist_pizza_by_id(id_pizza) and Topping.exist_topping(id_topping):
         if Pizza.objects.get(id=id_pizza).author.id.__eq__(request.user.id):
             ToppingsInPizza(pizza_id=id_pizza, topping_id=id_topping).save()
             return HttpResponse(json.dumps({'status': 'Save if not existed'}))
     return HttpResponse(json.dumps({'status': 'Not existed pizza or topping id or not pizza author'}))
+
+
+@api_view(['POST'])
+def add_pizza(request):
+    try:
+        pizza_name = str(request.data['pizza_name'])
+        pizza_price = int(request.data['pizza_price'])
+    except:
+        return HttpResponse(json.dumps({'status': 'Incorrect data type'}))
+    Pizza(name=pizza_name, price=pizza_price, author=request.user).save()
+    return HttpResponse(json.dumps({'status': 'Correct data type'}))
