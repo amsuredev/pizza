@@ -16,9 +16,6 @@ class ReadOnly(permissions.BasePermission):
             return True
         return False
 
-<<<<<<< HEAD
-=======
-
 '''
 class AddToppingForOwnPizzaOrReadOnly(permissions.BasePermission):
 
@@ -28,4 +25,4 @@ class AddToppingForOwnPizzaOrReadOnly(permissions.BasePermission):
             return True
         return False
 '''
->>>>>>> update
+

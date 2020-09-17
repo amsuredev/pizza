@@ -31,13 +31,10 @@ def post_vote(request):
         id_pizza = int(request.data['id_pizza'])
     except:
         return HttpResponse(json.dumps({'status': 'Incorrect data type'}))
-<<<<<<< HEAD
     if Pizza.exist_pizza(id_pizza) and first_vote(request.user.id):
         Vote(pizza_id=id_pizza, author_id=request.user.id).save()
-=======
     if Pizza.exist_pizza_by_id(id_pizza):
         Vote(author=request.user, pizza_id=id_pizza).save()
->>>>>>> update
     return HttpResponse(json.dumps({'status': 'Correct data types'}))
 
 
