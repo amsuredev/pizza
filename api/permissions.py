@@ -16,3 +16,16 @@ class ReadOnly(permissions.BasePermission):
             return True
         return False
 
+<<<<<<< HEAD
+=======
+
+'''
+class AddToppingForOwnPizzaOrReadOnly(permissions.BasePermission):
+
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS\
+                or request.user == obj.pizza.author:
+            return True
+        return False
+'''
+>>>>>>> update

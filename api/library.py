@@ -7,9 +7,14 @@ from votes.models import Vote
 import json
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from toppings_in_pizza.models import ToppingsInPizza
+from toppings.models import Topping
+from .permissions import ReadOnly
+
 
 
 @api_view(['GET'])
+@permission_classes((ReadOnly,))
 def get_res_of_voting(request):
     res_of_voting = {}
     for pizza in Pizza.objects.all():
@@ -26,13 +31,47 @@ def post_vote(request):
         id_pizza = int(request.data['id_pizza'])
     except:
         return HttpResponse(json.dumps({'status': 'Incorrect data type'}))
+<<<<<<< HEAD
     if Pizza.exist_pizza(id_pizza) and first_vote(request.user.id):
         Vote(pizza_id=id_pizza, author_id=request.user.id).save()
+=======
+    if Pizza.exist_pizza_by_id(id_pizza):
+        Vote(author=request.user, pizza_id=id_pizza).save()
+>>>>>>> update
     return HttpResponse(json.dumps({'status': 'Correct data types'}))
 
 
-def first_vote(author_id):
-    for vote in Vote.objects.all():
-        if vote.author_id == author_id:
-            return False
-    return True
+@api_view(['GET'])
+def amount_of_toppings(request):
+    amount_top = {}
+    for pizza in Pizza.objects.all():
+        amount_top[pizza.name] = 0
+    for topping in ToppingsInPizza.objects.all():
+        amount_top[topping.pizza.name] += 1
+    return HttpResponse(json.dumps(amount_top))
+
+
+@api_view(['POST'])
+def add_toppings_in_pizza(request):
+    try:
+        id_pizza = int(request.data['id_pizza'])
+        id_topping = int(request.data['id_topping'])
+    except:
+        return HttpResponse(json.dumps({'status': 'Incorrect data type'}))
+
+    if Pizza.exist_pizza_by_id(id_pizza) and Topping.exist_topping(id_topping):
+        if Pizza.objects.get(id=id_pizza).author.id.__eq__(request.user.id):
+            ToppingsInPizza(pizza_id=id_pizza, topping_id=id_topping).save()
+            return HttpResponse(json.dumps({'status': 'Save if not existed'}))
+    return HttpResponse(json.dumps({'status': 'Not existed pizza or topping id or not pizza author'}))
+
+
+@api_view(['POST'])
+def add_pizza(request):
+    try:
+        pizza_name = str(request.data['pizza_name'])
+        pizza_price = int(request.data['pizza_price'])
+    except:
+        return HttpResponse(json.dumps({'status': 'Incorrect data type'}))
+    Pizza(name=pizza_name, price=pizza_price, author=request.user).save()
+    return HttpResponse(json.dumps({'status': 'Correct data type'}))

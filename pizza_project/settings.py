@@ -49,6 +49,8 @@ INSTALLED_APPS = [
 
     'pizzas.apps.PizzasConfig',
     'votes.apps.VotesConfig',
+    'toppings.apps.ToppingsConfig',
+    'toppings_in_pizza.apps.ToppingsInPizzaConfig',
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
