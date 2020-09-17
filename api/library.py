@@ -8,6 +8,7 @@ import json
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from toppings_in_pizza.models import ToppingsInPizza
+from toppings.models import Topping
 from .permissions import ReadOnly
 
 
@@ -42,3 +43,18 @@ def amount_of_toppings(request):
     for topping in ToppingsInPizza.objects.all():
         amount_top[topping.pizza.name] += 1
     return HttpResponse(json.dumps(amount_top))
+
+
+@api_view(['POST'])
+def add_toppings_in_pizza(request):
+    try:
+        id_pizza = int(request.data['id_pizza'])
+        id_topping = int(request.data['id_topping'])
+    except:
+        return HttpResponse(json.dumps({'status': 'Incorrect data type'}))
+
+    if Pizza.exist_pizza(id_pizza) and Topping.exist_topping(id_topping):
+        if Pizza.objects.get(id=id_pizza).author.id.__eq__(request.user.id):
+            ToppingsInPizza(pizza_id=id_pizza, topping_id=id_topping).save()
+            return HttpResponse(json.dumps({'status': 'Save if not existed'}))
+    return HttpResponse(json.dumps({'status': 'Not existed pizza or topping id or not pizza author'}))

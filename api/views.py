@@ -21,6 +21,7 @@ class PizzaList(generics.ListCreateAPIView):
 
 
 class PizzaDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthorOrReadOnly,)
     queryset = Pizza.objects.all()
     serializer_class = PizzaSerializer
 
@@ -47,6 +48,6 @@ class ToppingList(generics.ListCreateAPIView):
     serializer_class = ToppingSerializer
 
 
-class ToppingsInPizzaList(generics.ListCreateAPIView):
+class ToppingsInPizzaList(generics.ListAPIView):
     queryset = ToppingsInPizza.objects.all()
     serializer_class = ToppingsInPizzaSerializer

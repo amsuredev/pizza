@@ -10,12 +10,12 @@ class Topping(models.Model):
         return self.name
     
     def save(self, *args, **kwargs):
-        if not self.exist_topping(self.name):
+        if not self.exist_topping(self.id):
             super(Topping, self).save(*args, **kwargs)
 
     @staticmethod
-    def exist_topping(name):
+    def exist_topping(id_topping):
         for topping in Topping.objects.all():
-            if topping.name.__eq__(name):
+            if topping.id.__eq__(id_topping):
                 return True
         return False

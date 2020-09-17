@@ -9,7 +9,7 @@ from toppings_in_pizza.models import ToppingsInPizza
 class PizzaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pizza
-        fields = ('id', 'name', 'price')
+        fields = ('id', 'name', 'price', 'author')
 
 
 class VoteSerializer(serializers.ModelSerializer):
