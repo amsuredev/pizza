@@ -9,6 +9,7 @@ djangorestframework = "==3.11.0"
 dj-rest-auth = "==1.0.4"
 django-allauth = "==0.41.0"
 django-collectionfield = "*"
+python-decouple = "*"
 
 [dev-packages]
 

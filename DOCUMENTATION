@@ -39,3 +39,5 @@ url structure:
             amount_of_toppings/ -    list amount of toppings in each pizza (GET)
             toppings_in_pizza/ -     list pizza;topping (GET)
             add_toppings_in_pizza/ - add_toppings_in_pizza(POST)
+
+Install python-decouple

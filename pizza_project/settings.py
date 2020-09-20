@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+from decouple import config
+SECRET_KEY = config('SECRET_KEY')
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,10 +23,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '1e22x13e8qpnlzzwrrnss!ql@hyq)--aguovd$vtkvc9ka*@lb'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
 
 ALLOWED_HOSTS = []
 
@@ -52,6 +55,8 @@ INSTALLED_APPS = [
     'toppings.apps.ToppingsConfig',
     'toppings_in_pizza.apps.ToppingsInPizzaConfig',
 ]
+
+DEBUG = config('DEBUG')
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -94,7 +99,9 @@ WSGI_APPLICATION = 'pizza_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'DB_PASSWORD': config('DB_PASSWORD')
     }
 }
 
