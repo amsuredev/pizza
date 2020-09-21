@@ -12,14 +12,6 @@ class ToppingsInPizza(models.Model):
     def __str__(self):
         return self.pizza.name + ' ' + self.topping.name
 
-    @staticmethod
-    def exist_topping_in_pizza(pizza_name, topping_name):
-        for topping_in_pizza in ToppingsInPizza.objects.all():
-            if topping_in_pizza.pizza.name.__eq__(pizza_name) \
-                    and topping_in_pizza.topping.name.__eq__(topping_name):
-                return True
-        return False
-
     def save(self, *args, **kwargs):
-        if not self.exist_topping_in_pizza(self.pizza.name, self.topping.name):
+        if not ToppingsInPizza.objects.filter(pizza_name=self.pizza_name, topping_name=self.topping_name).exists():
             super(ToppingsInPizza, self).save(*args, **kwargs)

@@ -31,9 +31,9 @@ def post_vote(request):
         id_pizza = int(request.data['id_pizza'])
     except:
         return HttpResponse(json.dumps({'status': 'Incorrect data type'}))
-    if Pizza.exist_pizza(id_pizza) and first_vote(request.user.id):
+    if Pizza.objects.filter(pk=id_pizza).exists() and Vote.objects.filter(author_id=request.user.id).exists():
         Vote(pizza_id=id_pizza, author_id=request.user.id).save()
-    if Pizza.exist_pizza_by_id(id_pizza):
+    if Pizza.filter(pk=id_pizza):
         Vote(author=request.user, pizza_id=id_pizza).save()
     return HttpResponse(json.dumps({'status': 'Correct data types'}))
 
@@ -56,7 +56,7 @@ def add_toppings_in_pizza(request):
     except:
         return HttpResponse(json.dumps({'status': 'Incorrect data type'}))
 
-    if Pizza.exist_pizza_by_id(id_pizza) and Topping.exist_topping(id_topping):
+    if Pizza.objects.filter(pk=id_pizza) and Topping.objects.filter(pk=id_topping):
         if Pizza.objects.get(id=id_pizza).author.id.__eq__(request.user.id):
             ToppingsInPizza(pizza_id=id_pizza, topping_id=id_topping).save()
             return HttpResponse(json.dumps({'status': 'Save if not existed'}))

@@ -8,7 +8,7 @@ urlpatterns = [
     path('pizzas/<int:pk>/', PizzaDetail.as_view()),
     path('votes/', VoteList.as_view()),
     path('post_vote/', post_vote),
-    path('votes/<int:pk>', VoteDetail.as_view()),
+    path('votes/<int:pk>/', VoteDetail.as_view()),
     path('voting_res/', get_res_of_voting),
     path('users/', UserList.as_view()),
     path('auth/', include('dj_rest_auth.urls')),#/auth/login/

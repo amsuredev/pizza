@@ -13,13 +13,7 @@ class Vote(models.Model):
 
     # not allow to vote two or more times
     def save(self, *args, **kwargs):
-        if self.first_vote(self.author.id):
+        if not Vote.objects.filter(author_id=self.author.id).exists():
             super(Vote, self).save(*args, **kwargs)
 
-    @staticmethod
-    def first_vote(author_id):
-        for vote in Vote.objects.all():
-            if author_id == vote.author_id:
-                return False
-        return True
 
