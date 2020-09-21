@@ -50,10 +50,7 @@ INSTALLED_APPS = [
     'dj_rest_auth',
     'dj_rest_auth.registration',
 
-    'pizzas.apps.PizzasConfig',
-    'votes.apps.VotesConfig',
-    'toppings.apps.ToppingsConfig',
-    'toppings_in_pizza.apps.ToppingsInPizzaConfig',
+    'api.apps.ApiConfig'
 ]
 
 DEBUG = config('DEBUG')

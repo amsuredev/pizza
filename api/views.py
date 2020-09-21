@@ -2,15 +2,10 @@ from django.shortcuts import render
 from requests import Response
 from rest_framework import generics, permissions
 from rest_framework import serializers
-from toppings.models import Topping
-from toppings_in_pizza.models import ToppingsInPizza
 
 
 from django.contrib.auth.models import User
 from rest_framework.decorators import api_view
-
-from pizzas.models import Pizza
-from votes.models import Vote
 
 from .serializers import PizzaSerializer, VoteSerializer, UserSerializer
 from .permissions import IsAuthorOrReadOnly, ReadOnly
@@ -18,6 +13,7 @@ from .serializers import PizzaSerializer, VoteSerializer, UserSerializer,\
     ToppingSerializer, ToppingsInPizzaSerializer
 from .permissions import IsAuthorOrReadOnly
 
+from .models import Pizza, Topping, ToppingsInPizza, Vote
 
 
 class PizzaList(generics.ListAPIView):

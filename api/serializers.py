@@ -1,10 +1,7 @@
 from rest_framework import serializers
-from pizzas.models import Pizza
-from votes.models import Vote
 from django.contrib.auth.models import User
-from toppings.models import Topping
-from toppings_in_pizza.models import ToppingsInPizza
 
+from .models import Pizza, Vote, ToppingsInPizza, Topping
 
 class PizzaSerializer(serializers.ModelSerializer):
     class Meta:

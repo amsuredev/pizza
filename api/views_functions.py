@@ -2,15 +2,12 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework import permissions
 
-from pizzas.models import Pizza
-from votes.models import Vote
 import json
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from toppings_in_pizza.models import ToppingsInPizza
-from toppings.models import Topping
 from .permissions import ReadOnly
 
+from .models import Pizza, Vote, ToppingsInPizza, Topping
 
 
 @api_view(['GET'])
